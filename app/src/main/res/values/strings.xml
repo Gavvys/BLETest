@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">BLETest</string>
+
+    <string name="startup_message">
+        Before initiating a BLE scan, make sure that the GPS location service is turned on.
+        The files containing the raw data is stored in the Documents folder in the Internal Storage.
+    </string>
+
+    <string name="reason_bluetooth">
+        BLETest needs Bluetooth to be turned on to execute Bluetooth Low-Energy functions.
+    </string>
 </resources>

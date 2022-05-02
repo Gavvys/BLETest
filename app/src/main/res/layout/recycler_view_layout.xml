@@ -6,34 +6,45 @@
     android:layout_margin="8dp"
     app:contentPadding="8dp"
     app:cardCornerRadius="4dp"
-    app:cardBackgroundColor="@color/design_default_color_primary">
+    app:cardElevation="4dp">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <TextView
             android:id="@+id/tv_device_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:text="device_name"
             android:textSize="18sp"
-            android:textColor="@color/white"
             android:textStyle="bold" />
 
+        <TextView
+            android:id="@+id/tv_hits"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:text="Hits: 0"
+            android:textSize="18sp" />
         <TextView
             android:id="@+id/tv_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="device_address"
-            android:textColor="@color/white" />
-
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/tv_device_name"/>
         <TextView
             android:id="@+id/tv_rssi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="rssi_value"
-            android:textColor="@color/white" />
-    </LinearLayout>
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/tv_address"/>
+    </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
