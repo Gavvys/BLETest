@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_check_ble_support"
+        android:title="Check BLE Support"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_check_loc_perms"
+        android:title="Check location permissions"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_check_storage_perms"
+        android:title="Check storage permissions"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_check_bluetooth_perms"
+        android:title="Check Bluetooth permissions"
+        app:showAsAction="never" />
+</menu>

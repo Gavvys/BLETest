@@ -39,7 +39,7 @@ public class BLEScanner {
 
     private final Context context;
     private final BluetoothAdapter bluetoothAdapter;
-    private ScanSettings scanSettings;
+    private ScanSettings.Builder scanSettings;
     private ScanFilter scanFilter;
     private ScanCallback scanCallback;
     private BluetoothLeScanner scanner = null;
@@ -61,8 +61,9 @@ public class BLEScanner {
 
         try {
             this.scanner = bluetoothAdapter.getBluetoothLeScanner();
-        } catch (NullPointerException e) { e.printStackTrace(); }
-        finally {
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } finally {
             if (scanner == null) {
                 toaster.toast("Bluetooth LE is not supported by this device!");
             }
@@ -80,11 +81,8 @@ public class BLEScanner {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                             if (!((LocationManager) context.getSystemService(Context.LOCATION_SERVICE)).isLocationEnabled()) {
                                 promptEnableLoc();
-                            } else {
-                                startBLEScan();
                             }
                         }
-                        startBLEScan();
                     });
 
         if (Build.VERSION.SDK_INT >= S && context.checkSelfPermission(Manifest.permission.BLUETOOTH_SCAN) == PackageManager.PERMISSION_DENIED) {
@@ -109,7 +107,6 @@ public class BLEScanner {
             if (!isScanning) {
                 // Android Lollipop immediately allows permissions on launch
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    checkLocPermission();
                     checkBLEScanPermission();
                 }
 
@@ -122,7 +119,7 @@ public class BLEScanner {
                         public void run() {
                             // Sometimes app crashes because getBluetoothLEScanner() sometimes returns null, better catch the error
                             try { // Collections.singletonList(scanFilter)
-                                scanner.startScan(Collections.singletonList(scanFilter), scanSettings, scanCallback);
+                                scanner.startScan(Collections.singletonList(scanFilter), scanSettings.build(), scanCallback);
                                 Log.i(TAG, "Scanning started!");
                             } catch (NullPointerException e) {
                                 e.printStackTrace();
@@ -159,7 +156,7 @@ public class BLEScanner {
 
     private void initScanningParams() {
         scanSettings = new ScanSettings.Builder()
-                .setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY).build();
+                .setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY);
         scanFilter = new ScanFilter.Builder().setServiceUuid(new ParcelUuid(serviceUUID)).build();
         scanCallback = new ScanCallback() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -282,6 +279,24 @@ public class BLEScanner {
     @RequiresApi(api = S)
     private void requestBluetoothAdvertisePermission() {
         requestBLEAdvertiseLauncher.launch(Manifest.permission.BLUETOOTH_ADVERTISE);
+    }
+
+    public void setScanMode(String s) {
+        switch (s) {
+            case "MODE_LOW_LATENCY":
+                scanSettings.setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY);
+                break;
+            case "MODE_BALANCED":
+                scanSettings.setScanMode(ScanSettings.SCAN_MODE_BALANCED);
+                break;
+            case "MODE_LOW_POWER":
+                scanSettings.setScanMode(ScanSettings.SCAN_MODE_LOW_POWER);
+                break;
+            case "MODE_OPPORTUNISTIC":
+                if (Build.VERSION.SDK_INT >= M)
+                    scanSettings.setScanMode(ScanSettings.SCAN_MODE_OPPORTUNISTIC);
+                break;
+        }
     }
 
     public void setNewDeviceListener(NewBluetoothDeviceListener listener) { this.newDeviceListener = listener; }

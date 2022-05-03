@@ -9,4 +9,29 @@
     <string name="reason_bluetooth">
         BLETest needs Bluetooth to be turned on to execute Bluetooth Low-Energy functions.
     </string>
+
+    <string name="toggle_btn_scan_init_off"> Start scanning </string>
+    <string name="toggle_btn_scan_init_on"> Stop scanning </string>
+    <string name="toggle_btn_advertise_init_off"> Start advertising </string>
+    <string name="toggle_btn_advertise_init_on"> Stop advertising </string>
+
+    <string-array name="str_array_advertise_modes">
+        <item> MODE_LOW_POWER </item>
+        <item> MODE_BALANCED </item>
+        <item> MODE_LOW_LATENCY </item>
+    </string-array>
+
+    <string-array name="str_array_tx_power_level">
+        <item> TX_POWER_ULTRA_LOW </item>
+        <item> TX_POWER_LOW </item>
+        <item> TX_POWER_MEDIUM </item>
+        <item> TX_POWER_HIGH </item>
+    </string-array>
+
+    <string-array name="str_array_scan_modes">
+        <item> MODE_LOW_LATENCY </item>
+        <item> MODE_BALANCED </item>
+        <item> MODE_LOW_POWER </item>
+        <item> MODE_OPPORTUNISTIC </item>
+    </string-array>
 </resources>

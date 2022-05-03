@@ -75,6 +75,7 @@ public class BLEAdvertiser {
         Log.i(TAG, "Total payload: " + BuildConfig.BLE_SERVICE_UUID.getBytes(StandardCharsets.UTF_8).length);
 
         settings.setAdvertiseMode(AdvertiseSettings.ADVERTISE_MODE_BALANCED)
+                .setTxPowerLevel(AdvertiseSettings.ADVERTISE_TX_POWER_HIGH)
                 .setConnectable(true)
                 .setTimeout(60000); // Advertise for 10 seconds at most
 
@@ -131,7 +132,44 @@ public class BLEAdvertiser {
         isAdvertising = false;
         return true;
     }
+
     public void setMessage(String m) {
         message = m;
+    }
+
+    public void setTimeout(int t) {
+        settings.setTimeout(t);
+        toaster.toast("Advertising timeout set.");
+    }
+
+    public void setAdvertisingMode(String s) {
+        switch (s) {
+            case "MODE_LOW_POWER":
+                settings.setAdvertiseMode(AdvertiseSettings.ADVERTISE_MODE_LOW_POWER);
+                break;
+            case "MODE_LOW_LATENCY":
+                settings.setAdvertiseMode(AdvertiseSettings.ADVERTISE_MODE_LOW_LATENCY);
+                break;
+            case "MODE_BALANCED":
+                settings.setAdvertiseMode(AdvertiseSettings.ADVERTISE_MODE_BALANCED);
+                break;
+        }
+    }
+
+    public void setTxPowerLevel(String s) {
+        switch (s) {
+            case "TX_POWER_ULTRA_LOW":
+                settings.setTxPowerLevel(AdvertiseSettings.ADVERTISE_TX_POWER_ULTRA_LOW);
+                break;
+            case "TX_POWER_LOW":
+                settings.setTxPowerLevel(AdvertiseSettings.ADVERTISE_TX_POWER_LOW);
+                break;
+            case "TX_POWER_MEDIUM":
+                settings.setTxPowerLevel(AdvertiseSettings.ADVERTISE_TX_POWER_MEDIUM);
+                break;
+            case "TX_POWER_HIGH":
+                settings.setTxPowerLevel(AdvertiseSettings.ADVERTISE_TX_POWER_HIGH);
+                break;
+        }
     }
 }
